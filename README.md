@@ -19,7 +19,7 @@ So million is `n = 1` (1e6), billion is `n = 2` (1e9), decillion is `n = 10`
 (1e33), and so on. The names fall into two groups:
 
 - **n = 0–9 (thousand through nonillion):** irregular. Each is its own
-  historical word — there's no formula, they're just memorized, like
+  historical word, there's no formula, they're just memorized, like
   irregular verbs.
 - **n = 10 and up (decillion onward):** compositional. The name is built by
   putting together some Latin root pieces plus the suffix `"illion"`:
