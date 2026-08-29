@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Illion Cabinet — a catalog of very large numbers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0e1512;
+    --panel: #16211c;
+    --panel-2: #1c2b24;
+    --line: #2c3d35;
+    --brass: #c9a24b;
+    --brass-dim: #8f7635;
+    --verdigris: #6fae9b;
+    --paper: #ece4d3;
+    --paper-dim: #97a49b;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  a{ color: var(--verdigris); }
+  ::selection{ background: var(--brass); color: var(--ink); }
+
+  header{
+    padding: 3rem 1.5rem 2rem;
+    text-align:center;
+    border-bottom: 1px solid var(--line);
+  }
+  header .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--verdigris);
+  }
+  header h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin: 0.4rem 0 0.6rem;
+    color: var(--paper);
+  }
+  header p{
+    max-width: 40em;
+    margin: 0 auto;
+    color: var(--paper-dim);
+    font-size: 0.98rem;
+  }
+
+  main{ max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+  .lookup{
+    margin: 2.5rem 0 3rem;
+    padding: 1.8rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .lookup label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    margin-bottom: 0.6rem;
+  }
+  .lookup .row{ display:flex; gap: 0.6rem; flex-wrap: wrap; }
+  .lookup input[type="text"]{
+    flex: 1 1 260px;
+    min-width: 0;
+    background: var(--ink);
+    border: 1px solid var(--line);
+    color: var(--paper);
+    padding: 0.7rem 0.9rem;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+  }
+  .lookup input[type="text"]:focus{
+    outline: none;
+    border-color: var(--brass);
+    box-shadow: 0 0 0 2px rgba(201,162,75,0.25);
+  }
+  .lookup button{
+    background: var(--brass);
+    color: var(--ink);
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 4px;
+    font-family:'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  .lookup button:hover{ background: #dcb35f; }
+  .lookup .hint{ font-size: 0.82rem; color: var(--paper-dim); margin-top:0.7rem; }
+
+  .plaque{
+    margin-top: 1.6rem;
+    padding: 1.6rem;
+    background: var(--panel-2);
+    border: 1px solid var(--brass-dim);
+    border-radius: 4px;
+    display:none;
+  }
+  .plaque.show{ display:block; }
+  .plaque .catno{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--verdigris);
+    letter-spacing: 0.08em;
+  }
+  .plaque .name{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(1.4rem, 4vw, 2.1rem);
+    color: var(--paper);
+    margin: 0.3rem 0 0.5rem;
+  }
+  .plaque .abbr{
+    display:inline-block;
+    background: rgba(201,162,75,0.15);
+    color: var(--brass);
+    border: 1px solid var(--brass-dim);
+    padding: 0.15rem 0.55rem;
+    border-radius: 3px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+  }
+  .plaque .note{ color: var(--paper-dim); font-size: 0.85rem; margin-top:0.6rem; }
+
+  section.tier{ margin-bottom: 3rem; }
+  section.tier h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 1.4rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+  section.tier .tier-desc{ color: var(--paper-dim); font-size: 0.88rem; margin: 0 0 1.2rem; }
+
+  .filter-bar{
+    margin: 0.5rem 0 1.5rem;
+  }
+  .filter-bar input{
+    width:100%;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--paper);
+    padding: 0.6rem 0.9rem;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+  }
+  .filter-bar input:focus{ outline:none; border-color: var(--verdigris); }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.6rem;
+  }
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.7rem 0.8rem;
+    position:relative;
+  }
+  .card.featured{ border-color: var(--brass-dim); background: var(--panel-2); }
+  .card .exp{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--verdigris);
+  }
+  .card .word{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--paper);
+    margin: 0.15rem 0;
+    word-break: break-word;
+  }
+  .card .ab{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--brass);
+  }
+  .card.featured::before{
+    content: "";
+    position:absolute;
+    top:6px; right:6px;
+    width:6px; height:6px;
+    border-radius:50%;
+    background: var(--brass);
+  }
+  .card.hide{ display:none; }
+
+  footer{
+    text-align:center;
+    padding: 2.5rem 1.5rem 3rem;
+    color: var(--paper-dim);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--line);
+    margin-top: 2rem;
+  }
+  footer a{ color: var(--verdigris); }
+
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+  :focus-visible{ outline: 2px solid var(--verdigris); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">A field guide to enormous numbers</div>
+  <h1>The Illion Cabinet</h1>
+  <p>Every number past a thousand gets a name built from Latin roots. Type one in below, or browse the drawers to see how the naming system climbs from thousand all the way past centillion.</p>
+</header>
+
+<main>
+
+  <section class="lookup">
+    <label for="lookup-input">Enter a number</label>
+    <div class="row">
+      <input type="text" id="lookup-input" placeholder="e.g. 1000000000000000000000000000000000, or 4.2e45, or 10^63" autocomplete="off">
+      <button id="lookup-btn">Name it</button>
+    </div>
+    <div class="hint">Accepts a plain number, scientific notation (4.2e45), or 10^n form.</div>
+
+    <div class="plaque" id="plaque">
+      <div class="catno" id="plaque-catno">CAT. NO.</div>
+      <div class="name" id="plaque-name">—</div>
+      <span class="abbr" id="plaque-abbr">—</span>
+      <div class="note" id="plaque-note"></div>
+    </div>
+  </section>
+
+  <div class="filter-bar">
+    <input type="text" id="filter-input" placeholder="Filter the catalog by name or abbreviation…" autocomplete="off">
+  </div>
+
+  <section class="tier" id="tier1">
+    <h2>Drawer I — thousand to nonillion</h2>
+    <p class="tier-desc">The familiar ones. 10³ through 10³⁰, each with its own irregular Latin root.</p>
+    <div class="grid" id="grid1"></div>
+  </section>
+
+  <section class="tier" id="tier2">
+    <h2>Drawer II — decillion to nonagintillion</h2>
+    <p class="tier-desc">From 10³³ onward, names are built compositionally (unit + tens root + "-illion"). Every tenth entry — decillion, vigintillion, trigintillion…— is marked with a brass dot.</p>
+    <div class="grid" id="grid2"></div>
+  </section>
+
+  <section class="tier" id="tier3">
+    <h2>Drawer III — centillion and beyond</h2>
+    <p class="tier-desc">Past 10³⁰³, the system adds a hundreds root. Shown here in steps of one hundred; the lookup tool above can name anything in between.</p>
+    <div class="grid" id="grid3"></div>
+  </section>
+
+</main>
+
+<footer>
+  Names follow the standard Latin-prefix ("Conway–Wechsler style") convention used for large-number naming beyond million. Abbreviations shown here follow a consistent scheme but aren't an official standard — nobody truly governs this.
+</footer>
+
+<script>
+  const ONES = ["", "un","duo","tre","quattuor","quin","sex","septen","octo","novem"];
+  const TENS = ["", "deci","viginti","triginta","quadraginta","quinquaginta","sexaginta","septuaginta","octoginta","nonaginta"];
+  const HUNDREDS = ["", "centi","ducenti","trecenti","quadringenti","quingenti","sescenti","septingenti","octingenti","nongenti"];
+  const LOW_NAMES = {0:"thousand",1:"million",2:"billion",3:"trillion",4:"quadrillion",5:"quintillion",6:"sextillion",7:"septillion",8:"octillion",9:"nonillion"};
+
+  const ONES_ABBR = ["", "U","D","T","Qa","Qi","Sx","Sp","Oc","N"];
+  const TENS_ABBR = ["", "Dc","Vg","Tg","Qag","Qng","Sxg","Spg","Ocg","Ng"];
+  const HUNDREDS_ABBR = ["", "Ce","Dce","Tce","Qace","Qice","Sxce","Spce","Once","Nce"];
+  const LOW_ABBR = {0:"K",1:"M",2:"B",3:"T",4:"Qa",5:"Qi",6:"Sx",7:"Sp",8:"Oc",9:"No"};
+
+  function isVowel(ch){ return "aeiou".includes(ch.toLowerCase()); }
+
+  function joinParts(parts){
+    const nonEmpty = parts.filter(p => p.length > 0);
+    if(nonEmpty.length === 0) return "";
+    let result = nonEmpty[0];
+    for(let i=1;i<nonEmpty.length;i++){
+      const next = nonEmpty[i];
+      if(isVowel(result[result.length-1]) && isVowel(next[0])){
+        result = result.slice(0,-1) + next;
+      } else {
+        result = result + next;
+      }
+    }
+    return result;
+  }
+
+  function nameForN(n){
+    if(n < 10) return LOW_NAMES[n];
+    const u = n % 10, t = Math.floor(n/10) % 10, h = Math.floor(n/100) % 10;
+    return joinParts([ONES[u], TENS[t], HUNDREDS[h], "illion"]);
+  }
+  function abbrForN(n){
+    if(n < 10) return LOW_ABBR[n];
+    const u = n % 10, t = Math.floor(n/10) % 10, h = Math.floor(n/100) % 10;
+    return (ONES_ABBR[u]||"") + (TENS_ABBR[t]||"") + (HUNDREDS_ABBR[h]||"");
+  }
+  function exponentForN(n){ return 3*n + 3; }
+  function nForExponent(e){ return Math.round((e-3)/3); }
+
+  function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function parseInput(raw){
+    let s = raw.trim().replace(/,/g, "").replace(/\s+/g, "");
+    if(!s) return null;
+
+    let m = s.match(/^(?:(-?\d+(?:\.\d+)?)[\*x×]?)?10\^(\d+)$/i);
+    if(m) return normalize(m[1] ? parseFloat(m[1]) : 1, parseInt(m[2],10));
+
+    m = s.match(/^(-?\d+(?:\.\d+)?)[eE]\+?(-?\d+)$/);
+    if(m) return normalize(parseFloat(m[1]), parseInt(m[2],10));
+
+    m = s.match(/^(\d+)(?:\.(\d+))?$/);
+    if(m){
+      let intPart = m[1].replace(/^0+(?=\d)/, "");
+      let exp = intPart.length - 1;
+      let digits = intPart + (m[2] || "");
+      let mantissa = parseFloat(digits[0] + "." + (digits.slice(1,6) || "0"));
+      return normalize(mantissa, exp);
+    }
+    return null;
+  }
+
+  function normalize(mantissa, exponent){
+    if(!isFinite(mantissa) || mantissa === 0) return {mantissa: 0, exponent: 0};
+    while(mantissa >= 10){ mantissa /= 10; exponent++; }
+    while(mantissa < 1){ mantissa *= 10; exponent--; }
+    return {mantissa, exponent};
+  }
+
+  function describe(raw){
+    const parsed = parseInput(raw);
+    if(!parsed) return {error: "That doesn't look like a number. Try a plain integer, 4.2e45, or 10^63."};
+    const {mantissa, exponent} = parsed;
+    if(exponent < 3){
+      return {error: "Numbers under 1,000 don't get a special name — this cabinet starts at the thousand."};
+    }
+    const base3 = Math.floor(exponent/3) * 3;
+    const remainder = exponent - base3;
+    const adjMantissa = mantissa * Math.pow(10, remainder);
+    const n = nForExponent(base3);
+    if(n > 999){
+      return {error: "That's beyond this cabinet's drawers (past 10^3002) — the naming system keeps going with 'milli-' prefixes, but this catalog stops here."};
+    }
+    return {
+      mantissa: adjMantissa,
+      exponent,
+      base3,
+      n,
+      name: nameForN(n),
+      abbr: abbrForN(n)
+    };
+  }
+
+  const lookupInput = document.getElementById('lookup-input');
+  const lookupBtn = document.getElementById('lookup-btn');
+  const plaque = document.getElementById('plaque');
+  const plaqueCatno = document.getElementById('plaque-catno');
+  const plaqueName = document.getElementById('plaque-name');
+  const plaqueAbbr = document.getElementById('plaque-abbr');
+  const plaqueNote = document.getElementById('plaque-note');
+
+  function runLookup(){
+    const val = lookupInput.value;
+    if(!val.trim()){
+      plaque.classList.remove('show');
+      return;
+    }
+    const result = describe(val);
+    plaque.classList.add('show');
+    if(result.error){
+      plaqueCatno.textContent = "—";
+      plaqueName.textContent = result.error;
+      plaqueAbbr.style.display = "none";
+      plaqueNote.textContent = "";
+      return;
+    }
+    plaqueAbbr.style.display = "inline-block";
+    plaqueCatno.textContent = "10^" + result.exponent;
+    const roundedMantissa = Math.round(result.mantissa * 100) / 100;
+    plaqueName.textContent = roundedMantissa + " " + result.name;
+    plaqueAbbr.textContent = roundedMantissa + " " + result.abbr;
+    plaqueNote.textContent = result.base3 === 3
+      ? "This is the simplest tier — a plain thousand."
+      : "Built from the " + (result.n < 10 ? "irregular" : "compositional") + " root for position " + result.n + " in the sequence.";
+  }
+  lookupBtn.addEventListener('click', runLookup);
+  lookupInput.addEventListener('keydown', e => { if(e.key === 'Enter') runLookup(); });
+
+  function makeCard(n, featured){
+    const card = document.createElement('div');
+    card.className = 'card' + (featured ? ' featured' : '');
+    const exp = exponentForN(n);
+    const name = nameForN(n);
+    const abbr = abbrForN(n);
+    card.innerHTML =
+      '<div class="exp">10^' + exp + '</div>' +
+      '<div class="word">' + capitalize(name) + '</div>' +
+      '<div class="ab">' + abbr + '</div>';
+    card.dataset.search = (name + " " + abbr + " " + exp).toLowerCase();
+    return card;
+  }
+
+  const grid1 = document.getElementById('grid1');
+  for(let n=0; n<=9; n++) grid1.appendChild(makeCard(n, false));
+
+  const grid2 = document.getElementById('grid2');
+  for(let n=10; n<=99; n++) grid2.appendChild(makeCard(n, n % 10 === 0));
+
+  const grid3 = document.getElementById('grid3');
+  for(let n=100; n<=900; n+=100) grid3.appendChild(makeCard(n, true));
+
+  const filterInput = document.getElementById('filter-input');
+  filterInput.addEventListener('input', () => {
+    const q = filterInput.value.trim().toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+      const match = !q || card.dataset.search.includes(q);
+      card.classList.toggle('hide', !match);
+    });
+  });
+</script>
+
+</body>
+</html>
