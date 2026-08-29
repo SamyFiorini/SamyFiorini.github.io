@@ -28,9 +28,11 @@ So million is `n = 1` (1e6), billion is `n = 2` (1e9), decillion is `n = 10`
     sexaginta, septuaginta, octoginta, nonaginta)
   - a **hundreds** root (centi, ducenti, trecenti, quadringenti, quingenti,
     sescenti, septingenti, octingenti, nongenti)
+    
+  and so on.
 
   For example,
-  `n = 17` → units "septen" + tens "deci" → **septendecillion** (1e54).
+  `n = 17` → units "septen" + tens "deci" → **septendecillion** (1e54)
   `n = 101` → units "un" + hundreds "centi" → **uncentillion** (1e306)
 
 This is the standard "Conway–Wechsler style" system used by dictionaries and
@@ -71,13 +73,13 @@ and the resulting `n` gets run through the same naming logic as the drawers.
 
 Everything lives in one file, `index.html`:
 
-- **`<style>`** — all the visual design (the dark "specimen cabinet" theme,
+- **`<style>`** all the visual design (the dark "specimen cabinet" theme,
   fonts, card layout).
-- **HTML body** — the lookup box, the filter bar, and three empty `<div>`
+- **HTML body** the lookup box, the filter bar, and three empty `<div>`
   containers (`grid1`, `grid2`, `grid3`) that JavaScript fills in.
-- **`<script>`** — the naming logic, the input parser, and the code that
+- **`<script>`** the naming logic, the input parser, and the code that
   builds each drawer's cards when the page loads.
 
-Nothing is hardcoded as a giant list of names — the drawers are generated on
+Nothing is hardcoded as a giant list of names, the drawers are generated on
 the fly by looping over `n` values and calling the same `nameForN()` and
 `abbrForN()` functions the lookup tool uses.
