@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Illion Cabinet — a catalog of very large numbers</title>
+<title>Samy's Names Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -225,9 +225,9 @@
 <body>
 
 <header>
-  <div class="eyebrow">A field guide to enormous numbers</div>
-  <h1>The Illion Cabinet</h1>
-  <p>Every number past a thousand gets a name built from Latin roots. Type one in below, or browse the drawers to see how the naming system climbs from thousand all the way past centillion.</p>
+  <div class="eyebrow">A quite comprehensive website to name enormous numbers</div>
+  <h1>Samy's Number Names Generator :3</h1>
+  <p>Every number past a thousand gets a name built from Latin roots. Type one in below, or take a look around to see how the naming system works its way up from a thousand all the way to a centillion and beyond.</p>
 </header>
 
 <main>
@@ -235,10 +235,10 @@
   <section class="lookup">
     <label for="lookup-input">Enter a number</label>
     <div class="row">
-      <input type="text" id="lookup-input" placeholder="e.g. 1000000000000000000000000000000000, or 4.2e45, or 10^63" autocomplete="off">
+      <input type="text" id="lookup-input" placeholder="e.g. 100000000000000000000000, or 4.2e45, or 1e63" autocomplete="off">
       <button id="lookup-btn">Name it</button>
     </div>
-    <div class="hint">Accepts a plain number, scientific notation (4.2e45), or 10^n form.</div>
+    <div class="hint">Accepts a plain number, scientific notation (like 4.2e45), or 1eN form (like 1e33).</div>
 
     <div class="plaque" id="plaque">
       <div class="catno" id="plaque-catno">CAT. NO.</div>
@@ -254,27 +254,26 @@
 
   <section class="tier" id="tier1">
     <h2>Drawer I — thousand to nonillion</h2>
-    <p class="tier-desc">The familiar ones. 10³ through 10³⁰, each with its own irregular Latin root.</p>
+    <p class="tier-desc">The common ones. 1e3 through 1e30, each with its own irregular Latin root.</p>
     <div class="grid" id="grid1"></div>
   </section>
 
   <section class="tier" id="tier2">
     <h2>Drawer II — decillion to nonagintillion</h2>
-    <p class="tier-desc">From 10³³ onward, names are built compositionally (unit + tens root + "-illion"). Every tenth entry — decillion, vigintillion, trigintillion…— is marked with a brass dot.</p>
+    <p class="tier-desc">Everything in between is a combination of one of these with a Drawer I name, like septendecillion (1e54), which is septillion (septen) + decillion.</p>
     <div class="grid" id="grid2"></div>
   </section>
 
   <section class="tier" id="tier3">
     <h2>Drawer III — centillion and beyond</h2>
-    <p class="tier-desc">Past 10³⁰³, the system adds a hundreds root. Shown here in steps of one hundred; the lookup tool above can name anything in between.</p>
+    <p class="tier-desc">Past 1e303, the system adds a hundreds root. Shown here in steps of one hundred.</p>
     <div class="grid" id="grid3"></div>
   </section>
 
 </main>
 
 <footer>
-  Names follow the standard Latin-prefix ("Conway–Wechsler style") convention used for large-number naming beyond million. Abbreviations shown here follow a consistent scheme but aren't an official standard — nobody truly governs this.
-</footer>
+Names follow the standard Latin-prefix ("Conway–Wechsler style") convention used for large-number naming beyond millions. Abbreviations shown here follow a consistent scheme of common usage.</footer>
 
 <script>
   const ONES = ["", "un","duo","tre","quattuor","quin","sex","septen","octo","novem"];
@@ -349,7 +348,7 @@
 
   function describe(raw){
     const parsed = parseInput(raw);
-    if(!parsed) return {error: "That doesn't look like a number. Try a plain integer, 4.2e45, or 10^63."};
+    if(!parsed) return {error: "That doesn't look like a number. Try a plain integer, 4.2e45, or 1e63."};
     const {mantissa, exponent} = parsed;
     if(exponent < 3){
       return {error: "Numbers under 1,000 don't get a special name — this cabinet starts at the thousand."};
@@ -359,7 +358,7 @@
     const adjMantissa = mantissa * Math.pow(10, remainder);
     const n = nForExponent(base3);
     if(n > 999){
-      return {error: "That's beyond this cabinet's drawers (past 10^3002) — the naming system keeps going with 'milli-' prefixes, but this catalog stops here."};
+      return {error: "That's beyond this cabinet's drawers (past 1e3002)"};
     }
     return {
       mantissa: adjMantissa,
@@ -395,12 +394,12 @@
       return;
     }
     plaqueAbbr.style.display = "inline-block";
-    plaqueCatno.textContent = "10^" + result.exponent;
+    plaqueCatno.textContent = "1e" + result.exponent;
     const roundedMantissa = Math.round(result.mantissa * 100) / 100;
     plaqueName.textContent = roundedMantissa + " " + result.name;
     plaqueAbbr.textContent = roundedMantissa + " " + result.abbr;
     plaqueNote.textContent = result.base3 === 3
-      ? "This is the simplest tier — a plain thousand."
+      ? "This is the simplest tier, a plain thousand."
       : "Built from the " + (result.n < 10 ? "irregular" : "compositional") + " root for position " + result.n + " in the sequence.";
   }
   lookupBtn.addEventListener('click', runLookup);
@@ -413,7 +412,7 @@
     const name = nameForN(n);
     const abbr = abbrForN(n);
     card.innerHTML =
-      '<div class="exp">10^' + exp + '</div>' +
+      '<div class="exp">1e' + exp + '</div>' +
       '<div class="word">' + capitalize(name) + '</div>' +
       '<div class="ab">' + abbr + '</div>';
     card.dataset.search = (name + " " + abbr + " " + exp).toLowerCase();
@@ -424,10 +423,10 @@
   for(let n=0; n<=9; n++) grid1.appendChild(makeCard(n, false));
 
   const grid2 = document.getElementById('grid2');
-  for(let n=10; n<=99; n++) grid2.appendChild(makeCard(n, n % 10 === 0));
+  for(let n=10; n<=90; n+=10) grid2.appendChild(makeCard(n, false));
 
   const grid3 = document.getElementById('grid3');
-  for(let n=100; n<=900; n+=100) grid3.appendChild(makeCard(n, true));
+  for(let n=100; n<=900; n+=100) grid3.appendChild(makeCard(n, false));
 
   const filterInput = document.getElementById('filter-input');
   filterInput.addEventListener('input', () => {
