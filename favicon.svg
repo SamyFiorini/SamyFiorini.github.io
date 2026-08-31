@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700&amp;display=swap');
+
+    text {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 70px;
+      fill: #111111;
+    }
+
+    /* Automatically adapts to browser dark mode */
+    @media (prefers-color-scheme: dark) {
+      text {
+        fill: #ffffff;
+      }
+    }
+  </style>
+
+  <!-- Centered :3 on transparent background -->
+  <text x="50%" y="53%" text-anchor="middle" dominant-baseline="central">:3</text>
+</svg>
