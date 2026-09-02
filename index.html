@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Samy's Number Names Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>:3</text></svg>">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -247,25 +246,25 @@
 <header>
   <div class="eyebrow">A quite comprehensive website to name enormous numbers</div>
   <h1>Samy's Number Names Generator :3</h1>
-  <p>Every number past a thousand gets a name built from Latin roots. Type one in below, no matter how large. Right now this is v0.3.6 of the website.</p>
+  <p>This is version 0.4.0 of the website and still a work in progress! To see more detailed documentation about how everything works, refer to the GitHub documentation, which doesn't exist yet ^-^ </p>
 </header>
 
 <main>
 
   <section class="lookup">
-    <label for="lookup-input">Enter a number</label>
+    <label for="lookup-input">~Enter a number~</label>
     <div class="row">
-      <input type="text" id="lookup-input" placeholder="e.g. 100000000000000000000000, or 3.3e33, or 10^3003" autocomplete="off">
-      <button id="lookup-btn">Name it</button>
+      <input type="text" id="lookup-input" placeholder="e.g. 10000000000000000, 4.2e45, 10^63" autocomplete="off">
+      <button id="lookup-btn">Name it!</button>
     </div>
-    <div class="hint">Accepts a plain number, scientific notation (like 4.2e45), or a power of ten (like 10^33 or 2.7*10^887).</div>
+    <div class="hint">Accepts a plain number, scientific notation (like 4.2e45), or powers of ten (like 10^33 or 8.8*10^734)</div>
 
-    <label for="reverse-input" style="margin-top: 1.2rem;">Or enter a name or abbreviation</label>
+    <label for="reverse-input" style="margin-top: 1.2rem;">~Enter a name or abbreviation~</label>
     <div class="row">
-      <input type="text" id="reverse-input" placeholder="e.g. decillion, Dc, septendecillion, or millinillion" autocomplete="off">
-      <button id="reverse-btn">Find the number</button>
+      <input type="text" id="reverse-input" placeholder="e.g. decillion, Dc, ViGInTilLiON, vg" autocomplete="off">
+      <button id="reverse-btn">Find the number!</button>
     </div>
-    <div class="hint">Works for full names or their short forms, like "vigintillion" or just "Vg".</div>
+    <div class="hint">Works for full names or their short forms, like "vigintillion" or just "Vg"</div>
 
     <div class="plaque" id="plaque">
       <div class="catno" id="plaque-catno">CAT. NO.</div>
@@ -280,33 +279,39 @@
   </div>
 
   <section class="tier" id="tier1">
-    <h2>Drawer I: thousand to nonillion</h2>
-    <p class="tier-desc">The common ones. 1e3 through 1e30, each with its own irregular Latin root.</p>
+    <h2>Drawer I: the ones</h2>
+    <p class="tier-desc">The common ones. 1e3 through 1e30, each with its own irregular Latin root</p>
     <div class="grid" id="grid1"></div>
   </section>
 
   <section class="tier" id="tier2">
-    <h2>Drawer II: decillion to nonagintillion</h2>
-    <p class="tier-desc">The main tens-roots from 1e33 onward. Everything in between reads additively: a tens-root plus a whole Drawer I word, like vigintitrillion (1e72), which is viginti (twenty) plus trillion, rather than mashing three prefixes into one. The lookup tool above will name any of them.</p>
+    <h2>Drawer II: the tens</h2>
+    <p class="tier-desc">The main tens roots from 1e33 onward. Everything in between reads additively: a tens root plus a whole Drawer I word, like vigintitrillion (1e72), which is viginti (twenty) plus trillion</p>
     <div class="grid" id="grid2"></div>
   </section>
 
   <section class="tier" id="tier3">
-    <h2>Drawer III: centillion to novemcentillion</h2>
-    <p class="tier-desc">Past 1e303, the system adds a hundreds prefix. Shown here in steps of one hundred. This construction is deliberately additive rather than a straight prefix mash-up, which is what lets 103 (centitrillion) and 300 (trecentillion) stay clearly distinct instead of colliding into the same word.</p>
+    <h2>Drawer III: the hundreds</h2>
+    <p class="tier-desc">Starting at 1e303 (n=100), the system adds a hundreds prefix. This construction is deliberately additive rather than a straight prefix mash-up, which is what lets 103 (centitrillion) and 300 (trecentillion) stay clearly distinct instead of having the same name</p>
     <div class="grid" id="grid3"></div>
   </section>
 
   <section class="tier" id="tier4">
-    <h2>Drawer IV: millinillion and the recursive extension</h2>
-    <p class="tier-desc">The base dictionary runs out around 1e3000 (n = 999), but the pattern doesn't have to. "Milli" and "nilli" are dedicated connector words, never used as a real number on their own, so they can chain onto each block of the additive naming above without ever being confused for part of the number itself. That's what lets this fold back on itself indefinitely. The lookup tool above will name anything in this range too, no matter how far you push it.</p>
+    <h2>Drawer IV: the blocks</h2>
+    <p class="tier-desc">Starting at 1e3003 (n = 1000), the naming keeps going by reusing ten dedicated "block" words: myri, million, billion... nonillion. Each one a thousand times bigger than the last. So the thousandth illion is myriillion, the millionth is millionillion, the billionth is billionillion... all the way to the nonillionth illion. Past that, a second dedicated pair, "vasti" and "nulla", takes over and chains indefinitely</p>
     <div class="grid" id="grid4"></div>
+  </section>
+
+  <section class="tier" id="tier5">
+    <h2>Drawer V: the repetition</h2>
+    <p class="tier-desc">Once the ten block words above are exhausted, "vasti" and "nulla" chain the whole system into itself indefinitely. The lookup tool above does have a hard cap on how big of a number you can name, but theoretically you can name any number</p>
+    <div class="grid" id="grid5"></div>
   </section>
 
 </main>
 
 <footer>
-The base naming (from the thousands through the hundreds tier) is built additively, following the construction that Sbiis Saibian laid out in his Extensible Illion System, specifically to avoid the kind of naming collision (like 103 and 300 both wanting to be "trecentillion") that straight Latin-prefix mashing runs into. Past that base range, numbers are named using a dedicated, never-reused "milli/nilli" connector pattern that chains indefinitely without new collisions, verified by round-trip testing across the full base range plus a wide sample of much larger numbers. Abbreviations shown here follow a separate, consistent shorthand scheme of my own, not tied to either naming convention. Right now I'm working on my own system to remove the milli-nilli-nilli-nilli... chain for arbitrarily large numbers, but making it 100% functional and stable is pretty hard, so it might take a while.</footer>
+This naming system started from Conway-Guy-Wechsler and Sbiis Saibian's Extensible Illion System. From there it's been substantially extended and modified. Every layer was checked by generating tens of thousands of names and parsing them back to confirm no two different numbers ever produce the same word. Abbreviations shown here follow a separate, consistent shorthand of my own.</footer>
 
 <script>
   const ONES = ["", "un","duo","tre","quattuor","quin","sex","septen","octo","novem"];
@@ -381,75 +386,163 @@ The base naming (from the thousands through the hundreds tier) is built additive
     return r === 0n ? p + "Ni" : p + abbrForN(r);
   }
 
-  function hybridGroupToIlli(v){
-    if(v < 1000n){
-      const word = saibianWord0to999(Number(v));
-      return word.slice(0, -2);
+  const P = ["", "myri","million","billion","trillion","quadrillion","quintillion","sextillion","septillion","octillion","nonillion"];
+
+  function compactCoefficient(v){ // v: 1..999
+    if(v === 1) return "";
+    const h = Math.floor(v/100), t = Math.floor(v/10)%10, u = v%10;
+    const hundredPart = h === 0 ? "" : (h === 1 ? "centi" : ONES[h] + "centi");
+    const tensPart = t === 0 ? "" : SAIBIAN_TENS[t];
+    const onesPart = u === 0 ? "" : ONES[u];
+    return hundredPart + tensPart + onesPart;
+  }
+
+  function phase1Name(N){ // N: BigInt, 0 <= N < 10^33
+    const digits = [];
+    let rem = N;
+    for(let i=0; i<11; i++){ digits.push(Number(rem % 1000n)); rem = rem / 1000n; }
+    const c0 = digits[0];
+    let prefix = "";
+    for(let i = 10; i >= 1; i--){
+      const ci = digits[i];
+      if(ci > 0) prefix += compactCoefficient(ci) + P[i];
     }
-    const Q = v/1000n, R = v % 1000n;
-    const pq = hybridGroupToIlli(Q);
-    return R === 0n ? pq + "nilli" : pq + hybridGroupToIlli(R);
-  }
-  function bigName(n){
-    if(n < 1000n) return saibianWord0to999(Number(n));
-    const q = n/1000n, r = n % 1000n;
-    const p = hybridGroupToIlli(q);
-    return r === 0n ? p + "nillion" : p + saibianWord0to999(Number(r));
+    if(c0 === 0) return prefix === "" ? null : prefix + "illion";
+    return prefix + saibianWord0to999(c0);
   }
 
-  const CHAINFORM_MAP = new Map();
-  CHAINFORM_MAP.set("nilli", 0);
-  for(let v = 1; v < 1000; v++){
-    const key = hybridGroupToIlli(BigInt(v));
-    if(!CHAINFORM_MAP.has(key)) CHAINFORM_MAP.set(key, v);
+  const COMPACT_REVERSE_MAP = new Map();
+  for(let v = 1; v <= 999; v++){
+    const key = compactCoefficient(v);
+    if(!COMPACT_REVERSE_MAP.has(key)) COMPACT_REVERSE_MAP.set(key, v);
   }
-  const CHAINFORM_KEYS = [...CHAINFORM_MAP.keys()].sort((a,b) => b.length - a.length);
+  function parseCompactCoefficient(str){
+    if(str === "") return 1;
+    return COMPACT_REVERSE_MAP.has(str) ? COMPACT_REVERSE_MAP.get(str) : null;
+  }
 
-  const DICTFORM_MAP = new Map();
-  DICTFORM_MAP.set("nillion", 0);
+  const PHASE1_DICTFORM_MAP = new Map();
+  PHASE1_DICTFORM_MAP.set("illion", 0);
   for(let r = 1; r < 1000; r++){
     const key = saibianWord0to999(r);
-    if(!DICTFORM_MAP.has(key)) DICTFORM_MAP.set(key, r);
+    if(!PHASE1_DICTFORM_MAP.has(key)) PHASE1_DICTFORM_MAP.set(key, r);
   }
-  const DICTFORM_KEYS = [...DICTFORM_MAP.keys()].sort((a,b) => b.length - a.length);
+  const PHASE1_DICTFORM_KEYS = [...PHASE1_DICTFORM_MAP.keys()].sort((a,b) => b.length - a.length);
 
   function findLongestSuffix(str, sortedKeys){
     for(const k of sortedKeys){ if(str.length >= k.length && str.endsWith(k)) return k; }
     return null;
   }
-  function stripSuffix(str, sortedKeys, map){
-    const match = findLongestSuffix(str, sortedKeys);
-    if(!match) return null;
-    return { value: map.get(match), remainder: str.slice(0, str.length - match.length) };
-  }
-  function parseChain(str){
-    let remaining = str;
-    const groups = [];
-    while(remaining.length > 0){
-      const result = stripSuffix(remaining, CHAINFORM_KEYS, CHAINFORM_MAP);
-      if(!result) return null;
-      groups.unshift(result.value);
-      remaining = result.remainder;
+
+  function parsePhase1(raw){
+    const input = raw.trim().toLowerCase().replace(/[\s-]/g, "");
+    if(input === "thousand") return 0n;
+    const c0match = findLongestSuffix(input, PHASE1_DICTFORM_KEYS);
+    if(!c0match) return null;
+    const c0 = PHASE1_DICTFORM_MAP.get(c0match);
+    let remaining = input.slice(0, input.length - c0match.length);
+    const coeffs = {};
+    for(let i = 10; i >= 1; i--){
+      const sep = P[i];
+      const idx = remaining.indexOf(sep);
+      if(idx === -1) continue;
+      const prefix = remaining.slice(0, idx);
+      const c = parseCompactCoefficient(prefix);
+      if(c === null) return null;
+      coeffs[i] = c;
+      remaining = remaining.slice(idx + sep.length);
     }
-    if(groups.length === 0) return null;
-    let v = 0n;
-    for(const g of groups) v = v*1000n + BigInt(g);
-    return v;
+    if(remaining !== "") return null;
+    let n = 0n;
+    for(let i = 10; i >= 1; i--) n += BigInt(coeffs[i] || 0) * (1000n ** BigInt(i));
+    n += BigInt(c0);
+    return n;
   }
+
+  const PHASE1_LIMIT = 1000n ** 11n;
+  const VASTI = "vasti", NULLA = "nulla", NULLA_TERMINAL = "nullaillion";
+
+  function phase1NameOrThousand(n){
+    return n === 0n ? "thousand" : phase1Name(n);
+  }
+  function phase1ChainForm(v){
+    return phase1Name(v).slice(0, -2);
+  }
+  function outerChainForm(v){
+    if(v === 1n) return VASTI;
+    if(v < PHASE1_LIMIT) return phase1ChainForm(v) + VASTI;
+    const Q = v / PHASE1_LIMIT, R = v % PHASE1_LIMIT;
+    const pq = outerChainForm(Q);
+    return R === 0n ? pq + NULLA : pq + outerChainForm(R);
+  }
+  function bigName(n){
+    if(n < PHASE1_LIMIT) return phase1NameOrThousand(n);
+    const q = n / PHASE1_LIMIT, r = n % PHASE1_LIMIT;
+    const p = outerChainForm(q);
+    return r === 0n ? p + NULLA_TERMINAL : p + phase1Name(r);
+  }
+
+  function parseOuterChain(str){
+    const markers = [];
+    let i = 0;
+    while(i < str.length){
+      if(str.startsWith(VASTI, i)){ markers.push({type:"vasti", start:i, end:i+VASTI.length}); i += VASTI.length; }
+      else if(str.startsWith(NULLA, i)){ markers.push({type:"nulla", start:i, end:i+NULLA.length}); i += NULLA.length; }
+      else i++;
+    }
+    if(markers.length === 0) return null;
+    let value = 0n, prevEnd = 0;
+    for(const m of markers){
+      const prefixText = str.slice(prevEnd, m.start);
+      let digit;
+      if(m.type === "nulla"){
+        if(prefixText !== "") return null;
+        digit = 0n;
+      } else {
+        if(prefixText === "") digit = 1n;
+        else {
+          const parsed = parsePhase1(prefixText + "on");
+          if(parsed === null) return null;
+          digit = parsed;
+        }
+      }
+      value = value * PHASE1_LIMIT + digit;
+      prevEnd = m.end;
+    }
+    if(prevEnd !== str.length) return null;
+    return value;
+  }
+
   function parseNumberName(raw){
     const input = raw.trim().toLowerCase().replace(/[\s-]/g, "");
     if(input === "") return {error: "Type a name or abbreviation to look up."};
-    if(input === "thousand") return {n: 0n};
-    const top = stripSuffix(input, DICTFORM_KEYS, DICTFORM_MAP);
-    if(top){
-      const {value: r, remainder} = top;
-      if(remainder === ""){
-        if(r !== 0) return {n: BigInt(r)};
+    let n = null;
+    if(!input.includes(VASTI) && !input.includes(NULLA)){
+      n = parsePhase1(input);
+    } else {
+      let r, prefix;
+      if(input.endsWith(NULLA_TERMINAL)){
+        r = 0n;
+        prefix = input.slice(0, input.length - NULLA_TERMINAL.length);
       } else {
-        const q = parseChain(remainder);
-        if(q !== null) return {n: q*1000n + BigInt(r)};
+        const lastVasti = input.lastIndexOf(VASTI);
+        const lastNulla = input.lastIndexOf(NULLA);
+        const boundary = Math.max(
+          lastVasti === -1 ? -1 : lastVasti + VASTI.length,
+          lastNulla === -1 ? -1 : lastNulla + NULLA.length
+        );
+        if(boundary !== -1){
+          prefix = input.slice(0, boundary);
+          const rText = input.slice(boundary);
+          r = rText === "" ? null : parsePhase1(rText);
+        }
+      }
+      if(r !== undefined && r !== null && prefix !== undefined){
+        const q = parseOuterChain(prefix);
+        if(q !== null) n = q * PHASE1_LIMIT + r;
       }
     }
+    if(n !== null) return {n};
     return parseAbbr(raw);
   }
 
@@ -602,7 +695,8 @@ The base naming (from the thousands through the hundreds tier) is built additive
     let tierNote;
     if(result.n < 10n) tierNote = "one of the irregular base words.";
     else if(result.n < 1000n) tierNote = "built additively from smaller pieces.";
-    else tierNote = "built using the recursive milli/nilli extension past the base dictionary.";
+    else if(result.n < PHASE1_LIMIT) tierNote = "built using the myri-through-nonillion block system.";
+    else tierNote = "built using the vasti/nulla extension past 1e33.";
     plaqueNote.textContent = result.base3 === 3n
       ? "This is the simplest tier, a plain thousand."
       : "Position " + result.n + " in the sequence, " + tierNote;
@@ -635,28 +729,31 @@ The base naming (from the thousands through the hundreds tier) is built additive
     plaqueName.textContent = "1e" + exp;
     plaqueAbbr.textContent = bigAbbr(n);
     plaqueNote.textContent = n < 1000n
-      ? "That's position " + n + " in the sequence, " + (n < 10n ? "one of the irregular ones." : "built compositionally.")
-      : "That's position " + n + " in the sequence, using the recursive extension past millinillion.";
+      ? "That's position " + n + " in the sequence, " + (n < 10n ? "one of the irregular ones." : "built additively.")
+      : (n < PHASE1_LIMIT
+          ? "That's position " + n + " in the sequence, using the myri-through-nonillion block system."
+          : "That's position " + n + " in the sequence, using the vasti/nulla extension past 1e33.");
   }
   reverseBtn.addEventListener('click', runReverseLookup);
   reverseInput.addEventListener('keydown', e => { if(e.key === 'Enter') runReverseLookup(); });
 
   function makeCard(n, featured, showRoot){
+    const nBig = BigInt(n);
     const card = document.createElement('div');
     card.className = 'card' + (featured ? ' featured' : '');
-    const exp = exponentForN(n);
-    const name = bigName(BigInt(n));
-    const abbr = bigAbbr(BigInt(n));
+    const exp = exponentForNBig(nBig);
+    const name = bigName(nBig);
+    const abbr = bigAbbr(nBig);
     let rootHtml = "";
-    if(showRoot && n >= 1 && n <= 9){
-      rootHtml = '<div class="root">combines as: ' + ONES[n] + '</div>';
+    if(showRoot && nBig >= 1n && nBig <= 9n){
+      rootHtml = '<div class="root">combines as: ' + ONES[Number(nBig)] + '</div>';
     }
     card.innerHTML =
       '<div class="exp">1e' + exp + '</div>' +
       '<div class="word">' + capitalize(name) + '</div>' +
       '<div class="ab">' + abbr + '</div>' +
       rootHtml;
-    card.dataset.search = (name + " " + abbr + " " + exp + (showRoot && n>=1 && n<=9 ? " " + ONES[n] : "")).toLowerCase();
+    card.dataset.search = (name + " " + abbr + " " + exp + (showRoot && nBig>=1n && nBig<=9n ? " " + ONES[Number(nBig)] : "")).toLowerCase();
     return card;
   }
 
@@ -671,12 +768,17 @@ The base naming (from the thousands through the hundreds tier) is built additive
 
   const grid4 = document.getElementById('grid4');
   const drawer4milestones = [
-    1000,2000,3000,4000,5000,6000,7000,8000,9000,
-    10000,20000,30000,40000,50000,60000,70000,80000,90000,
-    100000,200000,300000,400000,500000,600000,700000,800000,900000,
-    1000000
+    1000n, 2000n, 9000n,
+    10n**6n, 2n*(10n**6n),
+    10n**9n, 10n**12n, 10n**15n, 10n**18n, 10n**21n, 10n**24n, 10n**27n, 10n**30n
   ];
   drawer4milestones.forEach(n => grid4.appendChild(makeCard(n, false)));
+
+  const grid5 = document.getElementById('grid5');
+  const drawer5milestones = [
+    10n**33n, 10n**33n + 1n, 2n*(10n**33n), 103n*(10n**33n), 300n*(10n**33n), 10n**66n
+  ];
+  drawer5milestones.forEach(n => grid5.appendChild(makeCard(n, false)));
 
   const filterInput = document.getElementById('filter-input');
   filterInput.addEventListener('input', () => {
